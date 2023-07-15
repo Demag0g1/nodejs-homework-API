@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-const crypto = require("crypto");
+const { crypto } = require("crypto");
 
 const contactsPath = path.join(
   __dirname,
@@ -58,7 +58,7 @@ const removeContact = async (
 const addContact = async (body) => {
   const contacts = await listContacts();
   const newContact = {
-    id: crypto(),
+    id: crypto,
     ...body,
   };
   contacts.push(newContact);
