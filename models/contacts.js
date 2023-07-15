@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-const Joi = require("joi");
+const crypto = require("crypto");
 
 const contactsPath = path.join(
   __dirname,
@@ -56,22 +56,11 @@ const removeContact = async (
 };
 
 const addContact = async (body) => {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string()
-      .email()
-      .required(),
-    phone: Joi.string().required(),
-  });
-  const { error, value } =
-    schema.validate(body);
-  if (error) {
-    throw new Error(
-      error.details[0].message
-    );
-  }
   const contacts = await listContacts();
-  const newContact = { ...value };
+  const newContact = {
+    id: crypto(),
+    ...body,
+  };
   contacts.push(newContact);
   await fs.writeFile(
     contactsPath,
@@ -84,20 +73,6 @@ const updateContact = async (
   contactId,
   body
 ) => {
-  const schema = Joi.object({
-    name: Joi.string(),
-    email: Joi.string().email(),
-    phone: Joi.string(),
-  });
-
-  const { error, value } =
-    schema.validate(body);
-  if (error) {
-    throw new Error(
-      error.details[0].message
-    );
-  }
-
   const contacts = await listContacts();
   const index = contacts.findIndex(
     (contact) =>
@@ -106,7 +81,7 @@ const updateContact = async (
   if (index !== -1) {
     contacts[index] = {
       ...contacts[index],
-      ...value,
+      ...body,
     };
     await fs.writeFile(
       contactsPath,
