@@ -42,9 +42,9 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { title, text } = req.body
+  const { name }  = req.body
   try {
-    const result = await service.addContact({ title, text })
+    const result = await service.addContact( { name })
 
     res.status(201).json({
       status: 'success',
@@ -59,9 +59,9 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   const { id } = req.params
-  const { title, text } = req.body
+  const { name } = req.body
   try {
-    const result = await service.updateContact(id, { title, text })
+    const result = await service.updateContact(id, { name })
     if (result) {
       res.json({
         status: 'success',
@@ -84,15 +84,15 @@ const update = async (req, res, next) => {
 
 const updateStatus = async (req, res, next) => {
   const { id } = req.params
-  const { isDone = false } = req.body
+  const { favorite} = req.body
 
   try {
-    const result = await service.updateContact(id, { isDone })
+    const result = await service.updateContact(id, { favorite })
     if (result) {
       res.json({
         status: 'success',
         code: 200,
-        data: { task: result },
+        data: { contacts: result },
       })
     } else {
       res.status(404).json({

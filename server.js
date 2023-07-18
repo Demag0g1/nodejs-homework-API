@@ -37,13 +37,10 @@ app.use((err, _, res, __) => {
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 app.use(logger(formatsLogger));
 
-
-const DB_HOST=`mongodb+srv://demagog:10101982@contacts.ttvf3bm.mongodb.net/contacts?retryWrites=true&w=majority`;
-
 const PORT =process.env.PORT || 3000;
+const dbHost = process.env.DB_HOST;
 
-
-mongoose.connect((DB_HOST), {
+mongoose.connect((dbHost), {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
