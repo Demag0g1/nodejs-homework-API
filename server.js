@@ -43,6 +43,7 @@ app.use(logger(formatsLogger));
 
 const PORT = process.env.PORT || 3000;
 const dbHost = process.env.DB_HOST;
+mongoose.set("strictQuery", true);
 
 mongoose
   .connect(dbHost, {
