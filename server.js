@@ -1,58 +1,86 @@
-const express = require("express");
-const logger = require("morgan");
-const cors = require("cors");
+// const express = require("express");
+// const logger = require("morgan");
+// const cors = require("cors");
 const mongoose = require("mongoose");
 
-require("dotenv").config();
+// require("dotenv").config();
 
-const app = express();
+// const app = express();
 
-app.use(express.json());
-app.use(cors());
+// app.use(express.json());
+// app.use(cors());
 
-const contactsRouter = require("./routes/api");
-app.use(
-  "/api/contacts",
-  contactsRouter
-);
+// const contactsRouter = require("./routes/api");
+// app.use(
+//   "./service/schemas/contacts.js",
+//   contactsRouter
+// );
 
-app.use((_, res, __) => {
-  res.status(404).json({
-    status: "error",
-    code: 404,
-    message:
-      "Use api on routes: /api/index",
-    data: "Not found",
-  });
-});
-app.use((err, _, res, __) => {
-  console.log(err.stack);
-  res.status(500).json({
-    status: "fail",
-    code: 500,
-    message: err.message,
-    data: "Internal Server Error",
-  });
-});
+// app.use((_, res, __) => {
+//   res.status(404).json({
+//     status: "error",
+//     code: 404,
+//     message:
+//       "Use api on routes: /api/index",
+//     data: "Not found",
+//   });
+// });
+// app.use((err, _, res, __) => {
+//   console.log(err.stack);
+//   res.status(500).json({
+//     status: "fail",
+//     code: 500,
+//     message: err.message,
+//     data: "Internal Server Error",
+//   });
+// });
 
-const formatsLogger =
-  app.get("env") === "development"
-    ? "dev"
-    : "short";
-app.use(logger(formatsLogger));
+// const formatsLogger =
+//   app.get("env") === "development"
+//     ? "dev"
+//     : "short";
+// app.use(logger(formatsLogger));
+DB_HOST =
+  "mongodb+srv://demagog:10101982@contacts.ttvf3bm.mongodb.net/db-contacts?retryWrites=true&w=majority";
 
-const PORT = process.env.PORT || 3000;
-const dbHost = process.env.DB_HOST;
+// const PORT = process.env.PORT || 3000;
+// const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
+// process.on(
+//   "uncaughtException",
+//   (err) => {
+//     console.error(
+//       "Uncaught Exception:",
+//       err.stack
+//     );
+//     process.exit(1);
+//   }
+// );
+
+// process.on(
+//   "unhandledRejection",
+//   (reason, promise) => {
+//     console.error(
+//       "Unhandled Rejection:",
+//       reason
+//     );
+//     process.exit(1);
+//   }
+// );
+
 mongoose
-  .connect(dbHost, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    DB_HOST
+    // {
+    // useNewUrlParser: true,
+    // useCreateIndex: true,
+    // useUnifiedTopology: true,
+    // }
+  )
+
   .then(() => {
-    app.listen(PORT, function () {
+    app.listen(3000, () => {
       console.log(
         `Database connection successful. Server running. Use our API on port: ${PORT}`
       );
