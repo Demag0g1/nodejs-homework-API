@@ -35,8 +35,13 @@ const port = process.env.PORT || 3000;
 const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
-const connection =
-  mongoose.connect(dbHost);
+const connection = mongoose.connect(
+  dbHost,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 connection
   .then(() => {
