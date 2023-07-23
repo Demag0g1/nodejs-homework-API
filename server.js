@@ -46,7 +46,13 @@ const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
 mongoose
-  .connect(dbHost)
+  .connect(dbHost, {
+    promiseLibrary: global.Promise,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     app.listen(port, () => {
       console.log(
