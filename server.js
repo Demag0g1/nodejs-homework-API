@@ -1,5 +1,4 @@
 const express = require("express");
-const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
@@ -11,10 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const contactsRouter = require("./routes/api");
-app.use(
-  "./service/schemas/contacts.js",
-  contactsRouter
-);
+app.use("./routes/api", contactsRouter);
 
 app.use((_, res, __) => {
   res.status(404).json({
@@ -35,24 +31,14 @@ app.use((err, _, res, __) => {
   });
 });
 
-const formatsLogger =
-  app.get("env") === "development"
-    ? "dev"
-    : "short";
-app.use(logger(formatsLogger));
-
 const port = process.env.PORT || 3000;
 const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
-mongoose
-  .connect(dbHost, {
-    promiseLibrary: global.Promise,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
+const connection =
+  mongoose.connect(dbHost);
+
+connection
   .then(() => {
     app.listen(port, () => {
       console.log(
