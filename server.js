@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const contactsRouter = require("./routes/api");
-app.use("./routes/api", contactsRouter);
+app.use("/api", contactsRouter);
 
 app.use((_, res, __) => {
   res.status(404).json({

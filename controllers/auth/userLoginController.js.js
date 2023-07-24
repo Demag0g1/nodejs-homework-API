@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const User = require("../service/schemas/user");
-const generateToken = require("../service/auth");
+const User = require("../../service/schemas/users");
+const generateToken = require("../../");
 const Joi = require("joi");
 
 const loginValidation = Joi.object({

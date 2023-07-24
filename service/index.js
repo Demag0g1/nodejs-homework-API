@@ -29,11 +29,11 @@ const addContact = async ({
 
 const updateContact = async (
   contactId,
-  name
+  newName
 ) => {
   return Contact.findByIdAndUpdate(
     { _id: contactId },
-    name,
+    { name: newName },
     { new: true }
   );
 };
