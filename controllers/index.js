@@ -130,7 +130,7 @@ const updateStatus = async (
       res.status(404).json({
         status: "error",
         code: 404,
-        message: `Not found task id: ${id}`,
+        message: `Not found`,
         data: "Not Found",
       });
     }
