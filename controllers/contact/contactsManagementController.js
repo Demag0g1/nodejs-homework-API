@@ -1,9 +1,14 @@
-const service = require("../service/index");
+const service = require("../../service");
 
-const getById = async (req, res, next) => {
+const getById = async (
+  req,
+  res,
+  next
+) => {
   const { id } = req.params;
   try {
-    const result = await service.getContactById(id);
+    const result =
+      await service.getContactById(id);
     if (result) {
       res.json({
         status: "success",
@@ -24,12 +29,17 @@ const getById = async (req, res, next) => {
   }
 };
 
-const create = async (req, res, next) => {
+const create = async (
+  req,
+  res,
+  next
+) => {
   const { name } = req.body;
   try {
-    const result = await service.addContact({
-      name,
-    });
+    const result =
+      await service.addContact({
+        name,
+      });
 
     res.status(201).json({
       status: "success",
@@ -42,13 +52,18 @@ const create = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+const update = async (
+  req,
+  res,
+  next
+) => {
   const { id } = req.params;
   const { name } = req.body;
   try {
-    const result = await service.updateContact(id, {
-      name,
-    });
+    const result =
+      await service.updateContact(id, {
+        name,
+      });
     if (result) {
       res.json({
         status: "success",
@@ -69,14 +84,19 @@ const update = async (req, res, next) => {
   }
 };
 
-const updateStatus = async (req, res, next) => {
+const updateStatus = async (
+  req,
+  res,
+  next
+) => {
   const { id } = req.params;
   const { favorite } = req.body;
 
   try {
-    const result = await service.updateContact(id, {
-      favorite,
-    });
+    const result =
+      await service.updateContact(id, {
+        favorite,
+      });
     if (result) {
       res.json({
         status: "success",
@@ -97,11 +117,17 @@ const updateStatus = async (req, res, next) => {
   }
 };
 
-const remove = async (req, res, next) => {
+const remove = async (
+  req,
+  res,
+  next
+) => {
   const { id } = req.params;
 
   try {
-    const result = await service.remove(id);
+    const result = await service.remove(
+      id
+    );
     if (result) {
       res.json({
         status: "success",
