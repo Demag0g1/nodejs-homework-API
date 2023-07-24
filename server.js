@@ -36,7 +36,7 @@ const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
 const connection = mongoose.connect(
-  (dbHost),
+  dbHost,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
