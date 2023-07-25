@@ -1,6 +1,6 @@
 const service = require("../../service");
 
-const getById = async (
+const getContactById = async (
   req,
   res,
   next
@@ -29,7 +29,7 @@ const getById = async (
   }
 };
 
-const create = async (
+const addContact = async (
   req,
   res,
   next
@@ -52,7 +52,7 @@ const create = async (
   }
 };
 
-const update = async (
+const updateContact  = async (
   req,
   res,
   next
@@ -117,7 +117,7 @@ const updateStatus = async (
   }
 };
 
-const remove = async (
+const removeContact  = async (
   req,
   res,
   next
@@ -149,9 +149,9 @@ const remove = async (
 };
 
 module.exports = {
-  getById,
-  create,
-  update,
+  getContactById,
+  addContact,
+  updateContact,
   updateStatus,
-  remove,
+  removeContact,
 };

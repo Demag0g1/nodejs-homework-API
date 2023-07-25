@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const ctrlContacts = require("./contacts.js");
+const ctrlContacts = require("./contacts");
 
-router.get("/", ctrlContacts.get);
+router.get("/", ctrlContacts.listContacts);
 router.get(
   "/:contactId",
-  ctrlContacts.getById
+  ctrlContacts.getContactById
 );
-router.post("/", ctrlContacts.create);
+router.post("/", ctrlContacts.addContact);
 router.delete(
   "/:contactId",
-  ctrlContacts.remove
+  ctrlContacts.removeContact
 );
 router.patch(
   "/:contactId/favorite",
@@ -18,7 +18,7 @@ router.patch(
 );
 router.put(
   "/:contactId",
-  ctrlContacts.update
+  ctrlContacts.updateContact
 );
 
 module.exports = router;

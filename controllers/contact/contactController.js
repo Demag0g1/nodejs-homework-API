@@ -1,6 +1,6 @@
 const { Contact } = require("../../service/schemas/contacts");
 
-const getContacts = async (req, res, next) => {
+const listContacts = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, favorite } = req.query;
     const filter = favorite
@@ -20,5 +20,5 @@ const getContacts = async (req, res, next) => {
 };
 
 module.exports = {
-  getContacts,
+  listContacts,
 };
