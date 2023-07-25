@@ -1,11 +1,21 @@
-const authLogin = require("./auth/userLoginController.js");
-const authRegistration = require("./auth/userRegistrationController.js");
-const contactController = require("./contact/contactController.js");
-const contactManagement = require("./contact/contactsManagementController.js");
+const {loginUser} = require("./auth/userLoginController.js");
+const {registerUser} = require("./auth/userRegistrationController.js");
+const { listContacts } = require("./contact/contactController.js");
+const {
+  getContactById,
+  addContact,
+  updateContact,
+  updateStatus,
+  removeContact,
+} = require("./contact/contactsManagementController.js");
 
 module.exports = {
-  authLogin,
-  authRegistration,
-  contactController,
-  contactManagement,
+  loginUser,
+  registerUser,
+  listContacts,
+  getContactById,
+  addContact,
+  updateContact,
+  updateStatus,
+  removeContact,
 };
