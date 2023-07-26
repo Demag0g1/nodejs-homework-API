@@ -1,4 +1,4 @@
-const Contact = require("./schemas/contacts");
+const Contact = require("./schemas/contacts.js");
 
 const listContacts = async () => {
   return Contact.find();
@@ -29,11 +29,11 @@ const addContact = async ({
 
 const updateContact = async (
   contactId,
-  name
+  newName
 ) => {
   return Contact.findByIdAndUpdate(
     { _id: contactId },
-    name,
+    { name: newName },
     { new: true }
   );
 };
