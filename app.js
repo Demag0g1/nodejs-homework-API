@@ -6,6 +6,7 @@ const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
 
+
 const formatsLogger =
   app.get("env") === "development"
     ? "dev"
@@ -31,5 +32,6 @@ app.use((err, req, res, next) => {
     .status(500)
     .json({ message: err.message });
 });
+
 
 module.exports = app;

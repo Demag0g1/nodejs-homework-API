@@ -1,4 +1,9 @@
 const service = require("../../service");
+const {
+  addContactSchema,
+  updateContactSchema,
+  updateStatusSchema,
+} = require("../../service/schemas/joi/contactValidation");
 
 const getContactById = async (
   req,
@@ -6,6 +11,15 @@ const getContactById = async (
   next
 ) => {
   const { id } = req.params;
+  const { err } = updateContactSchema.validate(
+    req.body
+  );
+  if (err) {
+    return res.status(400).json({
+      message: "Contact validation error",
+      err: err.details[0].message,
+    });
+  }
   try {
     const result =
       await service.getContactById(id);
@@ -35,6 +49,13 @@ const addContact = async (
   next
 ) => {
   const { name } = req.body;
+  const { err  } = addContactSchema.validate(req.body);
+  if (err) {
+    return res.status(400).json({
+      message: "Contact validation error",
+      error: err.details[0].message,
+    });
+  }
   try {
     const result =
       await service.addContact({
@@ -46,7 +67,7 @@ const addContact = async (
       code: 201,
       data: { contacts: result },
     });
-  } catch (err) {
+  } catch (err ) {
     console.error(err);
     next(err);
   }
@@ -59,6 +80,15 @@ const updateContact  = async (
 ) => {
   const { id } = req.params;
   const { name } = req.body;
+  const { err } = updateContactSchema.validate(
+    req.body
+  );
+  if (err) {
+    return res.status(400).json({
+      message: "Contact validation error",
+      err: err.details[0].message,
+    });
+  }
   try {
     const result =
       await service.updateContact(id, {
@@ -91,6 +121,16 @@ const updateStatus = async (
 ) => {
   const { id } = req.params;
   const { favorite } = req.body;
+  const { err } = updateStatusSchema.validate(
+    req.body
+  );
+
+  if (err) {
+    return res.status(400).json({
+      message: "Contact validation error",
+      error: err.details[0].message,
+    });
+  }
 
   try {
     const result =
@@ -123,6 +163,16 @@ const removeContact  = async (
   next
 ) => {
   const { id } = req.params;
+  const { err } = updateStatusSchema.validate(
+    req.body
+  );
+
+  if (err) {
+    return res.status(400).json({
+      message: "Contact validation error",
+      error: err.details[0].message,
+    });
+  }
 
   try {
     const result = await service.remove(

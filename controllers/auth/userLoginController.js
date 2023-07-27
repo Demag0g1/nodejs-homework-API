@@ -1,26 +1,21 @@
 const bcrypt = require("bcrypt");
 const User = require("../../service");
 const generateToken = require("../../middleware/auth.js");
-const Joi = require("joi");
+const {
+  loginSchema,
+} = require("../../service/schemas/joi/userValidation");
 
-const loginValidation = Joi.object({
-  email: Joi.string()
-    .email()
-    .required(),
-  password: Joi.string().required(),
-});
+
 
 const loginUser = async (req, res) => {
   try {
-    const { error } =
-      loginValidation.validate(
-        req.body
-      );
+    const { error } = loginSchema.validate(
+      req.body
+    );
 
     if (error) {
       return res.status(400).json({
-        message:
-          "Login validation error",
+        message: "Login validation error",
         error: error.details[0].message,
       });
     }

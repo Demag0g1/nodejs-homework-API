@@ -12,9 +12,9 @@ const listContacts = async (req, res, next) => {
     };
     const contacts = await Contact.paginate(filter, options);
     res.json(contacts);
-  } catch (error) {
-    console.error(error);
-    next(error);
+  } catch (err) {
+    console.error(err);
+    next(err);
     return res.status(500).json({ message: "Server Error" });
   }
 };
