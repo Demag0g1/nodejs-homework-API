@@ -19,7 +19,7 @@ router.patch("/", authenticateToken, updateUserSubscription);
 router.patch(
   "/avatars",
   authenticateToken,
-  uploadAvatar.single("avatar"), 
+  uploadAvatar.single("avatar"),
   getCurrentUser.uploadAvatar
 );
 

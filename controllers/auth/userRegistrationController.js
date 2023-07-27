@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const User = require("../../service");
-const { registrationSchema } = require("../../service/schemas/joi/userValidation");
+const {
+  registrationSchema,
+} = require("../../service/schemas/joi/userValidation");
 const gravatar = require("gravatar");
 const path = require("path");
 const jimp = require("jimp");
@@ -8,9 +10,7 @@ const fs = require("fs");
 
 const registerUser = async (req, res) => {
   try {
-    const { err } = registrationSchema.validate(
-      req.body
-    );
+    const { err } = registrationSchema.validate(req.body);
 
     if (err) {
       return res.status(400).json({
@@ -19,8 +19,7 @@ const registerUser = async (req, res) => {
       });
     }
 
-    const { email, password } =
-      req.body;
+    const { email, password } = req.body;
 
     const avatarURL = gravatar.url(email, {
       s: "200",
@@ -28,8 +27,7 @@ const registerUser = async (req, res) => {
       d: "mm",
     });
 
-    const existingUser =
-      await User.findOne({ email });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(409).json({
@@ -38,11 +36,7 @@ const registerUser = async (req, res) => {
     }
 
     const saltRounds = 10;
-    const hashedPassword =
-      await bcrypt.hash(
-        password,
-        saltRounds
-      );
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = new User({
       email,
@@ -55,8 +49,7 @@ const registerUser = async (req, res) => {
     return res.status(201).json({
       user: {
         email: newUser.email,
-        subscription:
-          newUser.subscription,
+        subscription: newUser.subscription,
         avatarURL: newUser.avatarURL,
       },
     });
@@ -78,9 +71,7 @@ const updateAvatar = async (req, res) => {
     const filePath = req.file.path;
     const image = await jimp.read(filePath);
     await image.cover(250, 250).write(filePath);
-    const fileName = `${user._id}${path.extname(
-      req.file.originalname
-    )}`;
+    const fileName = `${user._id}${path.extname(req.file.originalname)}`;
     const publicFilePath = path.join("public", "avatars", fileName);
     await fs.rename(filePath, publicFilePath);
     user.avatarURL = `/avatars/${fileName}`;

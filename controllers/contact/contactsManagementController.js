@@ -5,15 +5,9 @@ const {
   updateStatusSchema,
 } = require("../../service/schemas/joi/contactValidation");
 
-const getContactById = async (
-  req,
-  res,
-  next
-) => {
+const getContactById = async (req, res, next) => {
   const { id } = req.params;
-  const { err } = updateContactSchema.validate(
-    req.body
-  );
+  const { err } = updateContactSchema.validate(req.body);
   if (err) {
     return res.status(400).json({
       message: "Contact validation error",
@@ -21,8 +15,7 @@ const getContactById = async (
     });
   }
   try {
-    const result =
-      await service.getContactById(id);
+    const result = await service.getContactById(id);
     if (result) {
       res.json({
         status: "success",
@@ -43,13 +36,9 @@ const getContactById = async (
   }
 };
 
-const addContact = async (
-  req,
-  res,
-  next
-) => {
+const addContact = async (req, res, next) => {
   const { name } = req.body;
-  const { err  } = addContactSchema.validate(req.body);
+  const { err } = addContactSchema.validate(req.body);
   if (err) {
     return res.status(400).json({
       message: "Contact validation error",
@@ -57,32 +46,25 @@ const addContact = async (
     });
   }
   try {
-    const result =
-      await service.addContact({
-        name,
-      });
+    const result = await service.addContact({
+      name,
+    });
 
     res.status(201).json({
       status: "success",
       code: 201,
       data: { contacts: result },
     });
-  } catch (err ) {
+  } catch (err) {
     console.error(err);
     next(err);
   }
 };
 
-const updateContact  = async (
-  req,
-  res,
-  next
-) => {
+const updateContact = async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
-  const { err } = updateContactSchema.validate(
-    req.body
-  );
+  const { err } = updateContactSchema.validate(req.body);
   if (err) {
     return res.status(400).json({
       message: "Contact validation error",
@@ -90,10 +72,9 @@ const updateContact  = async (
     });
   }
   try {
-    const result =
-      await service.updateContact(id, {
-        name,
-      });
+    const result = await service.updateContact(id, {
+      name,
+    });
     if (result) {
       res.json({
         status: "success",
@@ -114,16 +95,10 @@ const updateContact  = async (
   }
 };
 
-const updateStatus = async (
-  req,
-  res,
-  next
-) => {
+const updateStatus = async (req, res, next) => {
   const { id } = req.params;
   const { favorite } = req.body;
-  const { err } = updateStatusSchema.validate(
-    req.body
-  );
+  const { err } = updateStatusSchema.validate(req.body);
 
   if (err) {
     return res.status(400).json({
@@ -133,10 +108,9 @@ const updateStatus = async (
   }
 
   try {
-    const result =
-      await service.updateContact(id, {
-        favorite,
-      });
+    const result = await service.updateContact(id, {
+      favorite,
+    });
     if (result) {
       res.json({
         status: "success",
@@ -157,15 +131,9 @@ const updateStatus = async (
   }
 };
 
-const removeContact  = async (
-  req,
-  res,
-  next
-) => {
+const removeContact = async (req, res, next) => {
   const { id } = req.params;
-  const { err } = updateStatusSchema.validate(
-    req.body
-  );
+  const { err } = updateStatusSchema.validate(req.body);
 
   if (err) {
     return res.status(400).json({
@@ -175,9 +143,7 @@ const removeContact  = async (
   }
 
   try {
-    const result = await service.remove(
-      id
-    );
+    const result = await service.remove(id);
     if (result) {
       res.json({
         status: "success",

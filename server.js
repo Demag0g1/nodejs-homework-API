@@ -17,11 +17,11 @@ app.use((_, res, __) => {
   res.status(404).json({
     status: "error",
     code: 404,
-    message:
-      "Use api on routes: /api/index",
+    message: "Use api on routes: /api/index",
     data: "Not found",
   });
 });
+
 app.use((err, _, res, __) => {
   console.log(err.stack);
   res.status(500).json({
@@ -36,13 +36,10 @@ const port = process.env.PORT || 3000;
 const dbHost = process.env.DB_HOST;
 mongoose.set("strictQuery", true);
 
-const connection = mongoose.connect(
-  dbHost,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+const connection = mongoose.connect(dbHost, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 connection
   .then(() => {
@@ -53,8 +50,6 @@ connection
     });
   })
   .catch((err) => {
-    console.log(
-      `Server not running. Error message: ${err.message}`
-    );
+    console.log(`Server not running. Error message: ${err.message}`);
     process.exit(1);
   });

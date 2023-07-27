@@ -4,33 +4,23 @@ const listContacts = async () => {
   return Contact.find();
 };
 
-const getContactById = async (
-  contactId
-) => {
+const getContactById = async (contactId) => {
   return Contact.findOne({
     _id: contactId,
   });
 };
 
-const removeContact = async (
-  contactId
-) => {
+const removeContact = async (contactId) => {
   return Contact.findByIdAndRemove({
     _id: contactId,
   });
 };
 
-const addContact = async ({
-  name,
-  text,
-}) => {
+const addContact = async ({ name, text }) => {
   return Contact.create({ name, text });
 };
 
-const updateContact = async (
-  contactId,
-  newName
-) => {
+const updateContact = async (contactId, newName) => {
   return Contact.findByIdAndUpdate(
     { _id: contactId },
     { name: newName },
