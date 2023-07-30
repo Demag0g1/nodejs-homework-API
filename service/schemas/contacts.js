@@ -7,10 +7,7 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: [
-        true,
-        "Set name for contact",
-      ],
+      required: [true, "Set name for contact"],
     },
     email: {
       type: String,
@@ -24,27 +21,23 @@ const contactSchema = new Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   },
   { versionKey: false }
 );
 
-const Contact = mongoose.model(
-  'Contact',
-  contactSchema
-);
+const Contact = mongoose.model("Contact", contactSchema);
+
 const addSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
 });
 
-const updateFavoriteSchema = Joi.object(
-  {
-    favorite: Joi.boolean().required(),
-  }
-);
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
 
 module.exports = {
   Contact,

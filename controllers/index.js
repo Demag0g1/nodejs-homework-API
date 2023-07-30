@@ -1,5 +1,5 @@
-const {loginUser} = require("./auth/userLoginController.js");
-const {registerUser} = require("./auth/userRegistrationController.js");
+const { loginUser } = require("./auth/userLoginController.js");
+const { registerUser } = require("./auth/userRegistrationController.js");
 const { listContacts } = require("./contact/contactController.js");
 const {
   getContactById,
